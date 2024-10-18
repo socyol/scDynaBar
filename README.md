@@ -50,11 +50,11 @@ This repository contains data and scripts for analyzing single-cell RNA-seq and 
 
 
 ## 🛠️ How to run the Analysis
-### Requirements 🌟
+### Requirements ⚠️
 
 - **R Version**: R version 4.3.2
   
-1. Clone the repository
+1. Clone the repository 
 
 ```r
 git clone https://github.com/yourusername/scDynaBar.git
@@ -63,14 +63,26 @@ cd scDynaBar
 2. Install the required R packages:
 
 ```r
-install.packages(c("Seurat", "dplyr", "patchwork", "Matrix", "ggplot2", "umap", "Rtsne", "gridExtra", "RColorBrewer", "stringr", "Biostrings", "readxl", "openxlsx", "data.table", "SeuratObject", "psychTools", "ComplexHeatmap", "circlize"))
+# Install BiocManager
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+
+# CRAN packages
+install.packages(c("Seurat", "dplyr", "patchwork", "Matrix", "ggplot2", 
+                   "umap", "Rtsne", "gridExtra", "RColorBrewer", "stringr", 
+                   "readxl", "openxlsx", "data.table", "SeuratObject", "psychTools"))
+
+# Bioconductor packages
+BiocManager::install(c("Biostrings", "ComplexHeatmap", "circlize"))
+
 ```
 3. Load the necessary functions: Each script depends on helper functions and settings loaded from settings.R. Ensure that settings.R is sourced at the beginning of your analysis:
 ```r
 source("scripts/settings.R")
 ```
 4. Run the analysis scripts
-5. Generate visualizations: After running the analysis, generate the plots
+5. Generate visualizations
 
 ## 📊 Raw data availability
 The raw data will be made available through a GEO accession number on the Gene Expression Omnibus (GEO). The code will be updated once the raw data is accessible there, as it is too large to host directly in this repository.
