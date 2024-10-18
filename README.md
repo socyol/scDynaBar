@@ -8,7 +8,7 @@ In this study, we applied scDynaBar to track the transition from a pluripotent s
 
 ## Overview
 
-This repository contains data and scripts for analyzing single-cell rna-seq and Bulk RNA-seq experiments. The aim is to process barcode sequences and associated metadata, create Seurat objects, and generate visualizations for results presented in the associated paper.
+This repository contains data and scripts for analyzing single-cell RNA-seq and Bulk RNA-seq experiments. The aim is to process barcode sequences and associated metadata, create Seurat objects, and generate visualizations for results presented in the associated paper.
 
 ## 📁 Repository Structure
 
