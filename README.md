@@ -5,7 +5,15 @@ Project Description
 scDynaBar is an innovative approach that combines CRISPR-Cas9 dynamic barcoding with single-cell sequencing to record temporal cellular events. Over a 4-week period, genetic barcodes accumulate mutations, which are then sequenced together with the transcriptome of each single cell. This enables the creation of a time-ordered record of cellular events, providing a unique perspective on biological dynamics.
 
 In this study, we applied scDynaBar to track the transition from a pluripotent state to a two-cell (2C)-like state in mouse embryonic stem cells (mESCs). Our results demonstrate the transient nature of the 2C-like state. Additionally, we show consistent mutation rates across different cell types in a mouse gastruloid model, underscoring the robustness and versatility of the system across diverse biological contexts.
-![image](https://github.com/user-attachments/assets/4baa7786-9729-4ab0-a8cd-b3fa9e6d4db1)
+
+<div style="display: flex; align-items: center;">
+    <img src="https://github.com/user-attachments/assets/4baa7786-9729-4ab0-a8cd-b3fa9e6d4db1" alt="Image" width="150" style="margin-right: 10px;"/>
+    <p style="font-size: 12px;">Scheme representation of the novel scDynaBar method. The
+self-targeting guide RNA recognizes itself as it is in the spacer within the sequence of the
+cassette inserted into each cell. Cas9 induces double-strand breaks that are repaired by
+NHEJ. The Cassette or CRISPR-Cas9 barcode accumulates indels (red marks) over time.</p>
+</div>
+
 
 
 ## Overview
