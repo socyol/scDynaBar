@@ -1,4 +1,4 @@
-# scDynaBar
+#   🧬 scDynaBar 🧬
 
 Project Description
 
@@ -10,7 +10,7 @@ In this study, we applied scDynaBar to track the transition from a pluripotent s
 
 This repository contains data and scripts for analyzing single-cell rna-seq and Bulk RNA-seq experiments. The aim is to process barcode sequences and associated metadata, create Seurat objects, and generate visualizations for results presented in the associated paper.
 
-## Repository Structure
+## 📁 Repository Structure
 
 ### `data/`
 
@@ -41,8 +41,8 @@ This repository contains data and scripts for analyzing single-cell rna-seq and 
 - **`settings.R`**: This script includes all necessary libraries and custom functions created for this project.
 
 
-## How to run the Analysis
-### Requirements
+## 🛠️ How to run the Analysis
+### Requirements 🌟
 
 - **R Version**: R version 4.3.2
   
@@ -64,8 +64,8 @@ source("scripts/settings.R")
 4. Run the analysis scripts
 5. Generate visualizations: After running the analysis, generate the plots
 
-## Raw data availability
+## 📊 Raw data availability
 The raw data will be made available through a GEO accession number on the Gene Expression Omnibus (GEO). The code will be updated once the raw data is accessible there, as it is too large to host directly in this repository.
 
-## Contact
+## 📫 Contact
 For questions or further assistance, please contact Yolanda Andrés-López at yalbmc@ibmb.csic.es.
