@@ -17,7 +17,7 @@ This repository contains data and scripts for analyzing single-cell RNA-seq and 
 - **`barcode_sequences/`**: This directory contains CSV files with barcode sequence data. Each file includes information on:
   - `cellID`: Identifier for each cell.
   - `barcode_sequence`: The specific barcode sequence (or allele).
-  - `quality_score`: Quality score from Illumina sequencing for each single-cell experiment.
+  - `mean_illumina_score`: Quality score from Illumina sequencing for each single-cell experiment.
 
 - **`metadatas/`**: This directory contains metadata CSV files that provide details on:
   - The number of reads/alleles (coverage) for each cell.
@@ -36,7 +36,7 @@ This repository contains data and scripts for analyzing single-cell RNA-seq and 
 
 - **`4_plots-zscan4.R`**: Scripts for visualizations related to zscan4 experiment.
   
--  **`4_plots-gastruloids.R`**: Scripts for visualizations related to gastruloid data.
+-  **`5_plots-gastruloids.R`**: Scripts for visualizations related to gastruloid data.
 
 - **`settings.R`**: This script includes all necessary libraries and custom functions created for this project.
 
