@@ -8,7 +8,7 @@ In this study, we applied scDynaBar to track the transition from a pluripotent s
 
 ## Overview
 
-This repository contains data and scripts for analyzing single-cell experiments. The aim is to process barcode sequences and associated metadata, create Seurat objects, and generate visualizations for results presented in the associated paper.
+This repository contains data and scripts for analyzing single-cell rna-seq and Bulk RNA-seq experiments. The aim is to process barcode sequences and associated metadata, create Seurat objects, and generate visualizations for results presented in the associated paper.
 
 ## Repository Structure
 
@@ -34,21 +34,38 @@ This repository contains data and scripts for analyzing single-cell experiments.
 
 - **`3_plots-timecourse.R`**: Scripts for visualizations specific to time course analyses.
 
-- **`4_plots-gastruloids.R`**: Scripts for visualizations related to gastruloid data.
+- **`4_plots-zscan4.R`**: Scripts for visualizations related to zscan4 experiment.
+  
+-  **`4_plots-gastruloids.R`**: Scripts for visualizations related to gastruloid data.
 
 - **`settings.R`**: This script includes all necessary libraries and custom functions created for this project.
 
 
 ## How to run the Analysis
+### Requirements
+
+- **R Version**: R version 4.3.2
+  
 1. Clone the repository
 
 ```r
-install.packages(c("Seurat", "dplyr", "patchwork", "Matrix", "ggplot2", "umap", "Rtsne", "gridExtra", "RColorBrewer", "stringr", "Biostrings", "readxl", "openxlsx", "data.table", "SeuratObject", "psychTools", "ComplexHeatmap", "circlize")) ```
+git clone https://github.com/yourusername/scDynaBar.git
+cd scDynaBar
+```
+2. Install the required R packages:
 
-## Requirements
+```r
+install.packages(c("Seurat", "dplyr", "patchwork", "Matrix", "ggplot2", "umap", "Rtsne", "gridExtra", "RColorBrewer", "stringr", "Biostrings", "readxl", "openxlsx", "data.table", "SeuratObject", "psychTools", "ComplexHeatmap", "circlize"))
+```
+3. Load the necessary functions: Each script depends on helper functions and settings loaded from settings.R. Ensure that settings.R is sourced at the beginning of your analysis:
+```r
+source("scripts/settings.R")
+```
+4. Run the analysis scripts
+5. Generate visualizations: After running the analysis, generate the plots
 
-- **R Version**: R version 4.3.2
+## Raw data availability
+The raw data will be made available through a GEO accession number on the Gene Expression Omnibus (GEO). The code will be updated once the raw data is accessible there, as it is too large to host directly in this repository.
 
-### Required Packages
-
-To run the scripts, ensure you have the following R packages installed:
+## Contact
+For questions or further assistance, please contact Yolanda Andrés-López at yalbmc@ibmb.csic.es.
