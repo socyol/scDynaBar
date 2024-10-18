@@ -38,6 +38,13 @@ This repository contains data and scripts for analyzing single-cell experiments.
 
 - **`settings.R`**: This script includes all necessary libraries and custom functions created for this project.
 
+
+## How to run the Analysis
+1. Clone the repository
+
+```r
+install.packages(c("Seurat", "dplyr", "patchwork", "Matrix", "ggplot2", "umap", "Rtsne", "gridExtra", "RColorBrewer", "stringr", "Biostrings", "readxl", "openxlsx", "data.table", "SeuratObject", "psychTools", "ComplexHeatmap", "circlize")) ```
+
 ## Requirements
 
 - **R Version**: R version 4.3.2
