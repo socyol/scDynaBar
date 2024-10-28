@@ -57,7 +57,7 @@ ggplot(data_r1, aes(x = as.factor(Day), y = Diversity, color = System, group = S
        y = "Barcode Diversity") +
   facet_wrap(~gRNA) +  
   theme_minimal() +
-  theme(legend.position = "right",  # Ajustar la posición de la leyenda
+  theme(legend.position = "right",  
         plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  
         axis.title.x = element_text(size = 14),
         axis.title.y = element_text(size = 14),
@@ -69,13 +69,13 @@ ggplot(data_r1, aes(x = as.factor(Day), y = Diversity, color = System, group = S
 data_r1_bp <- data_r1 %>%
   mutate(spacer = case_when(
     gRNA %in% c("g1", "g2", "g3", "g4", "g5") ~ "21bp",
-    gRNA %in% c("g6", "g9") ~ "26bp",
-    TRUE ~ NA_character_  # Para otros gRNAs, puedes poner NA o dejarlo en blanco
+    gRNA %in% c("g6", "g7") ~ "26bp",
+    TRUE ~ NA_character_  
   ))
 ggplot(data_r1_bp, aes(x = factor(Day), y = p.uncut)) +
   geom_boxplot() +
   # scale_fill_manual(values = c("#2ca25f",  "#e6550d")) + 
-  facet_wrap(~ spacer) +  # Crear un gráfico separado por cada condición
+  facet_wrap(~ spacer) +  
   labs(x = "Day", y = "% Original sequence", title = "") +
   theme_minimal()
 
@@ -85,7 +85,7 @@ ggplot(data_r1_bp, aes(x = factor(Day), y = p.uncut)) +
 ggplot(data_r1, aes(x = factor(Day), y = Diversity, fill = System)) +
   geom_boxplot() +
   scale_fill_manual(values = c("#2ca25f",  "#e6550d")) + 
-  facet_wrap(~ System) +  # Crear un gráfico separado por cada condición
+  facet_wrap(~ System) +  
   labs(x = "Day", y = "Barcode Diversity", title = "") +
   theme_minimal()
 
