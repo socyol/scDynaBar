@@ -32,6 +32,15 @@ suppressPackageStartupMessages(library(circlize))
 #        ====================================
 # The functions bellow are for the raw data (seurat object unprocessed)
 
+# -----------------------------
+#   Create Seurat Object 
+# -----------------------------
+sce.data <- Read10X(data.dir = "YOURPATH/filtered_feature_bc_matrix/")
+colnames(sce.data) <- gsub("-1", "", colnames(sce.data))
+sce <- CreateSeuratObject(counts = sce.data, project = "Single-cells", min.cells = 3, min.features = 200)
+
+# FROM THE SCE CREATED TO APPLY ALL THE FUNCTIONS FOR QC
+
 # ....................
 #     QC function
 # ....................
@@ -157,7 +166,7 @@ filter_gfp_positive_cells <- function(sce_norm) {
 #    Filter Cassette/reads table function
 # ...........................................
 # Function to filter the raw output (the .txt file with the cassettes and quality of ilumina)
-filter_output_amplicon <- function(file_path, gfp_positive_barcodes, sfl1 = "ACACC", sfl2 = "TTAGA") {
+filter_output_amplicon <- function(file_path, gfp_positive_barcodes, sfl1 = "ACACC", sfl2 = "TTAGAG") {
   
   # 1. Load the output file
   output <- read.table(file_path, header = FALSE, sep = "\t")

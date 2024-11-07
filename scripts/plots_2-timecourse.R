@@ -18,44 +18,61 @@ metadata <- na.omit(metadata)
 #  Figure 3c: Boxplot % Original barcode sequence
 # ====================================================
 # Define the colours
-colors <- c("0" = "darkgoldenrod1", "4" = "red", "10" = "#00CDCD")
+if (is.factor(metadata$uncut)) {
+  metadata$uncut <- as.numeric(as.character(metadata$uncut))
+} else if (is.character(metadata$uncut)) {
+  metadata$uncut <- as.numeric(metadata$uncut)
+}
 
-ggplot(data = metadata, aes(x = factor(Day), y = Uncuts, fill = factor(Day))) +
-  geom_boxplot(alpha = 0.5, width = 0.5, aes(color = factor(Day)), outlier.shape = NA) +  
+metadata$Day <- factor(metadata$Day, levels = c(0, 4, 10))
+
+ggplot(data = metadata, aes(x = factor(Day), y = uncut, fill = factor(Day))) +
+  geom_boxplot(width = 0.7, alpha = 0.5, color = c("#fed976",  "#F8766D", "#00BFC4" ), outlier.shape = NA) +
   geom_jitter(aes(color = factor(Day)), width = 0.2, alpha = 1) +
-  scale_fill_manual(values = colors) +
-  scale_color_manual(values = colors) +
+  scale_fill_manual(values = c("#fed976",  "#F8766D", "#00BFC4" ) ) +  # Custom fill colors
+  scale_color_manual(values = c("#fed976",  "#F8766D", "#00BFC4" )) +  # Match jitter color to boxplot fill
+  theme_minimal() +
   labs(title = "",
        x = "Day",
-       y = "% Original sequence") +
-  theme_minimal()
+       y = "% Original sequence") 
 
+#  Figure 3b: Boxplotmean intact PAM
+# ====================================================
+ggplot(data = metadata, aes(x = factor(Day), y = pam, fill = factor(Day))) +
+  geom_boxplot(width = 0.7, alpha = 0.5, color = c("#fed976",  "#F8766D", "#00BFC4" ), outlier.shape = NA) +
+  geom_jitter(aes(color = factor(Day)), width = 0.2, alpha = 1) +
+  scale_fill_manual(values = c("#fed976",  "#F8766D", "#00BFC4" ) ) +  # Custom fill colors
+  scale_color_manual(values = c("#fed976",  "#F8766D", "#00BFC4" )) +  # Match jitter color to boxplot fill
+  theme_minimal() +
+  labs(title = "",
+       x = "Day",
+       y = "% Original sequence") 
 
 #  Figure 3e: Boxplot mean sequence diversity
 # ====================================================
-
 ggplot(data = metadata, aes(x = factor(Day), y = Diversity, fill = factor(Day))) +
-  geom_boxplot(alpha = 0.5, width = 0.5, aes(color = factor(Day)), outlier.shape = NA) + 
+  geom_boxplot(width = 0.7, alpha = 0.5, color = c("#fed976",  "#F8766D", "#00BFC4" ), outlier.shape = NA) +
   geom_jitter(aes(color = factor(Day)), width = 0.2, alpha = 1) +
-  scale_fill_manual(values = colors) +
-  scale_color_manual(values = colors) +
+  scale_fill_manual(values = c("#fed976",  "#F8766D", "#00BFC4" ) ) +  # Custom fill colors
+  scale_color_manual(values = c("#fed976",  "#F8766D", "#00BFC4" )) +  # Match jitter color to boxplot fill
+  theme_minimal() +
   labs(title = "",
        x = "Day",
-       y = "Diversity per cell") +
-  theme_minimal()
+       y = "Diversity per cell") 
+
 
 #  Figure 3f: Boxplotmean length
 # ====================================================
-
-ggplot(data = metadata, aes(x = factor(Day), y = Mean_length, fill = factor(Day))) +
-  geom_boxplot(alpha = 0.5, width = 0.5, aes(color = factor(Day)), outlier.shape = NA) + 
+ggplot(data = metadata, aes(x = factor(Day), y = length, fill = factor(Day))) +
+  geom_boxplot(width = 0.7, alpha = 0.5, outlier.shape = NA, aes(color = factor(Day))) +
   geom_jitter(aes(color = factor(Day)), width = 0.2, alpha = 1) +
-  scale_fill_manual(values = colors) +
-  scale_color_manual(values = colors) +
+  scale_fill_manual(values = c("#fed976",  "#F8766D", "#00BFC4")) +  # Custom fill colors
+  scale_color_manual(values = c("#fed976",  "#F8766D", "#00BFC4")) +  # Match jitter color to boxplot fill
+  theme_minimal() +
   labs(title = "",
        x = "Day",
-       y = "Mean length (bp)") +
-  theme_minimal()
+       y = "Mean length( per cell (bp)")
+
 
 
 
@@ -65,7 +82,6 @@ ggplot(data = metadata, aes(x = factor(Day), y = Mean_length, fill = factor(Day)
 ## 1. Load the reads table result
 input_results <- "data/results" # in case you've saved the reads_Table data frames
 reads_table_timecourse <- read.csv(file.path(input_results, "NAME_METADATA")) 
-View(datostimecourse)
 
 
 ## 2. Select cells IDs day 0

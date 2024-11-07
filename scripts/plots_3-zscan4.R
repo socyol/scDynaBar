@@ -32,7 +32,7 @@ for (gene_name in genes_zscan) {
   sce_cl02@meta.data[[tolower(gene_name)]] <- gene_expression
 }
 
-# Merge emtadata with the seurat object
+# Merge metadata with the seurat object
 metadata <- subset(metadata, Coverage >= 8)
 colnames_to_keep <- intersect(colnames(sce_cl02), metadata$CellID)
 sce_zscan4_reads <- sce_cl02[, colnames_to_keep]
