@@ -147,6 +147,10 @@ replicate2<- c( "8467", "8468" )
 
 df1 <- df[df$replicate == "Replicate1" &  df$Reads_QC_amplicon > 200,]
 df2 <- df[df$replicate == "Replicate2" & df$Reads_QC_amplicon > 200,]
+
+df1 <- df[df$replicate == "Replicate1" &  df$Coverage > 200,]
+df2 <- df[df$replicate == "Replicate2" & df$Coverage > 200,]
+
 data.cor <-c()
 data.mean  <-c()
 for ( i in  c(1:nrow(df1))) {
@@ -162,6 +166,35 @@ for ( i in  c(1:nrow(df1))) {
   }
 }
 
+####
+####    For the reviewers they ask us to say how many replicates and combinations we have used for the analysis
+####    of the Fig 2B. We created a table (excell type) with the conditions, replicates, gRNAs and system
+#     . ........................................
+data_table <- data.frame(
+  Day = as.numeric(data.cor[, 1]),
+  gRNA = data.cor[, 2],
+  System = data.cor[, 3],
+  p_uncuts_Replicate1 = as.numeric(data.cor[, 4]),
+  p_uncuts_Replicate2 = as.numeric(data.cor[, 5])
+)
+num_combinations <- nrow(data_table)
+
+
+# Número total de combinaciones únicas de gRNA, System y Day
+num_combinations <- n_distinct(data_table[, c("Day", "gRNA", "System")]) # 33
+
+# Número total de días y replicates considerados
+num_days <- length(unique(data_table$Day)) # 6
+num_replicates <- 2  # Ya que son replicate 1 y replicate 2
+
+cat(" Total unique combinations (gRNA-System-Day):", num_combinations, "\n",
+    "Total days analyzed:", num_days, "\n",
+    "Total replicates per combination:", num_replicates, "\n")
+
+write.csv(data_table, "TFM/paper_REVIEWER-COMENTS/replicates_bulk_table.csv", row.names = FALSE)
+
+
+# ..............................................
 replicateA <- as.numeric(data.cor[,4])
 replicateB <- as.numeric(data.cor[,5])
 

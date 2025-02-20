@@ -10,10 +10,10 @@ source("scripts/settings.R")
 #_______________________________________
 # 2. Load metadata file 
 # ======================================
-input_mt <- "data/metadatas/"
+input_mt <- "TFM/paper_reduction/data/metadatas/"
 input_mt <- "Documents/TFM/paper_reduction/data/metadatas"
 
-metadata <- read.csv(file.path(input_mt, "/metadata_gastruloids.csv")) 
+metadata <- read.csv(file.path(input_mt, "metadata_gastruloids.csv")) 
 metadata <- na.omit(metadata)
 
 #_______________________________________
@@ -70,6 +70,10 @@ boxplot_metadata_feature <- function(data, feature_name) {
     plot_data <- plot_data[!(plot_data$CellType == celltype & 
                                (plot_data$Feature < lower_bound | plot_data$Feature > upper_bound)), ]
   }
+  
+  # Realizar el test de Kruskal-Wallis
+  kruskal_test <- kruskal.test(Feature ~ CellType, data = plot_data)
+  p_value <- kruskal_test$p.value
 
   purple_colors <- brewer.pal(n = length(unique(plot_data$CellType)), name = "Purples")
   gg <- ggplot(plot_data, aes(x = CellType, y = Feature, fill = CellType)) +
@@ -89,12 +93,13 @@ boxplot_metadata_feature <- function(data, feature_name) {
           panel.grid.minor = element_line(color = "gray85", size = 0.25),
           legend.position = "none")
   
-  return(gg)
+  return(kruskal_test)
+  # return(gg)
 }
 
 boxplot_metadata_feature(filtered_metadata, "Uncuts")
 
-
+colnames(filtered_metadata)
 #   Figure 5d :   Boxplot showing the distribution of the proportion of original barcodes across different time points
 # ================================================================
 timecourse <- read.csv(file.path(input_mt, "/metadata_timecourse.csv"))
