@@ -114,4 +114,4 @@ scp user@server:/path/to/cluster/blast_results_DAY4_10.txt .
 - The **BLAST database (`mm10_db`)** should be indexed in the cluster.
 - Check **BLAST logs (`blast_output_*.txt` and `blast_error_*.txt`)** for any errors.
 
-🚀 **For any questions, feel free to reach out!** ✨
+🚀 **For any questions, feel free to reach out!** ✨  yalbmc@ibmb.csic.es
