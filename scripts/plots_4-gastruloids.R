@@ -10,10 +10,10 @@ source("scripts/settings.R")
 #_______________________________________
 # 2. Load metadata file 
 # ======================================
-input_mt <- "TFM/paper_reduction/data/metadatas/"
+input_mt <- "data/metadatas/"
 input_mt <- "Documents/TFM/paper_reduction/data/metadatas"
 
-metadata <- read.csv(file.path(input_mt, "metadata_gastruloids.csv")) 
+metadata <- read.csv(file.path(input_mt, "/metadata_gastruloids.csv")) 
 metadata <- na.omit(metadata)
 
 #_______________________________________
@@ -26,7 +26,7 @@ metadata <- na.omit(metadata)
 selected_celltypes <- c("Caudal epiblast", "Caudal Mesoderm", "Intermediate mesoderm", "NMP", "Paraxial mesoderm", "Somitic mesoderm")
 filtered_metadata <- metadata %>%
   filter(celltype %in% selected_celltypes)
-# 
+#
 # 
 # Q1 <- quantile(filtered_metadata$Uncuts, 0.25, na.rm = TRUE)
 # Q3 <- quantile(filtered_metadata$Uncuts, 0.75, na.rm = TRUE)
@@ -93,8 +93,8 @@ boxplot_metadata_feature <- function(data, feature_name) {
           panel.grid.minor = element_line(color = "gray85", size = 0.25),
           legend.position = "none")
   
-  return(kruskal_test)
-  # return(gg)
+  # return(kruskal_test)
+  return(gg)
 }
 
 boxplot_metadata_feature(filtered_metadata, "Uncuts")

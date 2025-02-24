@@ -125,7 +125,15 @@ process_cells_output <- function(data_filtered, output_path = "YOUR_PATH") {
 
 
 
-
+# .....................................................
+#    # Function to calculate unique barcodes per cells (in Timecourse experiment)
+# .....................................................
+calculate_unique_barcodes_per_cell <- function(data) {
+  data %>%
+    group_by(Barcode) %>%
+    summarise(Unique_Barcodes = n_distinct(Match)) %>%
+    arrange(desc(Unique_Barcodes))
+}
 
 
 #######################################################################################
