@@ -121,6 +121,9 @@ ggplot(combined_unique_barcodes, aes(x = factor(Day), y = Unique_Barcodes, fill 
 #   Supplementary Figure 12a: QC Illumina Timecourse
 # ====================================================
 
+#        🚨   To do this you have to previously run script 2_sc_Barcode-AlelleSequences_analysis.R  🚨
+#             --------------------------------------------------------------------------------------
+
 ## 1. Load the reads table result
 input_results <- "data/results" # in case you've saved the reads_Table data frames
 reads_table_timecourse <- read.csv(file.path(input_results, "NAME_METADATA")) 

@@ -24,6 +24,7 @@ sce_zscan4 <- readRDS(file.path(input_so, "so_zscan4_r.rds"))
 
 # Compute the expression of zscan4 in cells without cluster 1
 sce_cl02 <- subset(sce_zscan4, TSNE_cluster != 1)
+all.genes <- rownames(sce_cl02) 
 
 genes_zscan <- c("Zscan4d", "Zscan4c", "Zscan4f", "Zscan4b", "Zscan4e")
 for (gene_name in genes_zscan) {
@@ -33,13 +34,13 @@ for (gene_name in genes_zscan) {
 }
 
 # Merge metadata with the seurat object
-metadata <- subset(metadata, Coverage >= 8)
+metadata <- subset(metadata, Coverage >= 4)
 colnames_to_keep <- intersect(colnames(sce_cl02), metadata$CellID)
 sce_zscan4_reads <- sce_cl02[, colnames_to_keep]
 
 sce_zscan4_reads@meta.data$CellID <- rownames(sce_zscan4_reads@meta.data)
 sce_zscan4_reads@meta.data <- merge(sce_zscan4_reads@meta.data, metadata, by = "CellID")
-rownames(sce_zscan4_reads@meta.data) <- sce_zscan4_reads@meta.data$Barcode
+rownames(sce_zscan4_reads@meta.data) <- sce_zscan4_reads@meta.data$CellID
 
 
 #_______________________________________
@@ -94,6 +95,7 @@ ht1
 #    Figure 4d: Zscan4c vs Diversity colored by Uncuts
 # ====================================================
 metadatap <- sce_zscan4_reads@meta.data
+metadatap <- subset(metadatap, Coverage >= 8)
 
 palete <- brewer.pal(n = 9, "RdPu")[3:9]
 ggplot(metadatap, aes(x = Diversity, y = zscan4c, color = Uncuts, fill = Uncuts)) +
@@ -111,8 +113,60 @@ ggplot(metadatap, aes(x = Diversity, y = zscan4c, color = Uncuts, fill = Uncuts)
 
 
 
-#   Supplementary Figure 5b: QC Illumina Zscan4 exp
+#   Supplementary Figure 8: Boxplot showing the barcoding cassette coverage in 2C-like cells and pluripotent cells
 # ====================================================
+
+sce_zscan4_reads@meta.data[["TSNE_cluster"]] <- factor(sce_zscan4_reads@meta.data[["TSNE_cluster"]], levels = c("1", "2", "0"))# c("1", "2", "0")
+levels(sce_zscan4_reads@meta.data$TSNE_cluster) <- c("Control", "Totipotents\nZscan4+", "Pluripotents\nZscan4-")
+
+zscan4_meta_1 <- subset(sce_zscan4_reads@meta.data, TSNE_cluster != "Control")
+zscan4_meta_1$TSNE_cluster <- factor(
+  zscan4_meta_1$TSNE_cluster,
+  levels = c("Totipotents\nZscan4+", "Pluripotents\nZscan4-"))
+
+levels(zscan4_meta_1$TSNE_cluster)
+table(zscan4_meta_1$TSNE_cluster)
+
+accent_colors <- brewer.pal(8, "Accent")
+colors <- c(accent_colors[3], accent_colors[1])
+
+ggplot(zscan4_meta_1, aes(x = TSNE_cluster, y = Coverage, fill = TSNE_cluster)) +
+  geom_boxplot(alpha = 0.5, width = 0.5, aes(color = TSNE_cluster), outlier.shape = NA) +
+  stat_boxplot(geom = "errorbar", width = 0.25, aes(color = TSNE_cluster), size = 1) + # Más grueso
+  xlab("") +
+  ylab("Coverage gRNA locus") + # "%Original sequence" "Diversity per cell" Mean length (bp)
+  theme_minimal() +
+  geom_jitter(aes(color = TSNE_cluster), width = 0.2, alpha = 1) +
+  stat_summary(fun = median, geom = "point", shape = 20, size = 3, color = "black", fill = "black") +
+  scale_fill_manual(values = colors) +
+  scale_color_manual(values = colors) +
+  ylim(0,300)+
+  theme(plot.title = element_text(hjust = 0.6, size = 16, color = "black", face = "bold"), # Título más oscuro y grande
+        axis.title = element_text(size = 19, color = "black"), # Títulos de ejes más oscuros y grandes
+        axis.text = element_text(size = 19, color = "black"),
+        panel.grid.major = element_line(color = "gray85", size = 0.5),  # Adjusts major grid lines
+        panel.grid.minor = element_line(color = "gray85", size = 0.25), # Texto de ejes más oscuro
+        legend.position = "none")
+
+
+
+## kruskal_test
+kruskal.test(Coverage ~ TSNE_cluster, data = zscan4_meta_1)
+
+## wilcoxon test
+group1 <- subset(zscan4_meta_1, TSNE_cluster == "Pluripotents\nZscan4-")
+group2 <- subset(zscan4_meta_1, TSNE_cluster == "Totipotents\nZscan4+")
+
+wilcox_test <- wilcox.test(group1$Coverage, group2$Coverage)
+p_value <- wilcox_test$p.value
+print(wilcox_test$p.value)
+
+
+#   Supplementary Figure 12b: QC Illumina Zscan4 exp
+# ====================================================
+
+#        🚨   To do this you have to previously run script 2_sc_Barcode-AlelleSequences_analysis.R  🚨
+#             --------------------------------------------------------------------------------------
 
 ## 1. Load the reads table result
 input_results <- "data/results" # in case you've saved the reads_Table data frames

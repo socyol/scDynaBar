@@ -21,11 +21,13 @@ metadata <- read.csv(file.path(input_bs, "metadata_bulk_df.csv"))
 
 metadata <- read.csv("/home/ibmb-ihh-02/Documents/TFM/scDynaBar/data/metadatas/metadata_bulk_df.csv")
 # select only replicate 1
-data_r1 <- metadata %>%
-  filter(replicate == "Replicate1", Coverage > 200)
+metadata <- metadata %>%
+  filter(X != 130)
 
 
 # statistic tests
+data_r1 <- metadata %>%
+  filter(replicate == "Replicate1", Coverage > 200)
 jt_test_uncuts <- JonckheereTerpstraTest(data_r1$p.uncut, data_r1$Day)
 jt_test_diversity <- JonckheereTerpstraTest(data_r1$Diversity, data_r1$Day)
 
@@ -114,11 +116,11 @@ ggplot(data = df2_BE3, aes(x = as.numeric(as.vector(Day)), y = value, fill = act
 
 
 
-
-
-
 #   Figure 1d :  Proportion of original barcodes over time across different gRNAs
 # =======================================================================================
+data_r1 <- df %>%
+  filter(replicate == "Replicate1", Coverage > 200)
+
 ggplot(data_r1, aes(x = as.factor(Day.c), y = p.uncut, color = System, group = System)) +
   geom_point(aes(shape = System), size = 3, position = position_dodge(width = 0.5)) +  
   geom_line(size = 1.2) + 
@@ -221,7 +223,7 @@ ggplot(df[ df$replicate == "Replicate1",], aes(x=Day.c, y=C.T,  fill=System)) + 
   theme_classic()  +    ylim(0, 0.1) +
   scale_fill_manual(values=c("#2ca25f",  "#e6550d"))
 
-df_filtered <- metadata %>%
+df_filtered <- df %>%
   filter(replicate == "Replicate1")
 
 # ✅ Crear el gráfico
@@ -314,6 +316,8 @@ ggplot(data, aes(x = replicateA, y = replicateB)) +
 
 #   Figure 2c :  . Proportion of barcodes based on their mutational profile: Cas9 and BE3
 # =======================================================================================
+df <- metadata %>%
+  filter(Coverage > 200)
 
 #     Cas9:
 # -------------
@@ -329,7 +333,6 @@ mean.day.active_Cas9 <- aggregate(df_Cas9$p.active[df_Cas9$replicate == "Replica
 mean.day.inactive_Cas9 <- aggregate(df_Cas9$p.inactive[df_Cas9$replicate == "Replicate2"], 
                                     list(df_Cas9$Day.c[df_Cas9$replicate == "Replicate2"]), FUN = mean)
 
-View(df_Cas9)
 df2_Cas9 <- data.frame(
   Day = rep(mean.day.uncut_Cas9[, 1], 3),
   value = c(mean.day.uncut_Cas9[, 2], mean.day.active_Cas9[, 2], mean.day.inactive_Cas9[, 2]),
@@ -337,13 +340,6 @@ df2_Cas9 <- data.frame(
                rep("Active", nrow(mean.day.active_Cas9)), 
                rep("Inactive", nrow(mean.day.inactive_Cas9)))
 )
-dim(df2_Cas9)
-
-df2_Cas9 <- df2_Cas9 %>%
-  mutate(Index = row_number())
-df2_Cas9 <- df2_Cas9 %>%
-  filter(Index != 17)
-
 
 df2_Cas9$activity <- factor(df2_Cas9$activity, levels = c("Original", "Active", "Inactive"))
 
@@ -441,4 +437,4 @@ ggplot(data_r1, aes(x = System, y = Indel, fill = System)) +
        y = "% Indels") +
   theme_minimal()
 
-wilcox_test <- wilcox.test(Indel ~ System, data = data_r1)
+wilcox.test(Indel ~ System, data = data_r1)
