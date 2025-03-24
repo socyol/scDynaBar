@@ -5,7 +5,7 @@ scDynaBar is an innovative approach that combines CRISPR-Cas9 dynamic barcoding 
 In this study, we applied scDynaBar to track the transition from a pluripotent state to a two-cell (2C)-like state in mouse embryonic stem cells (mESCs). Our results demonstrate the transient nature of the 2C-like state. Additionally, we show consistent mutation rates across different cell types in a mouse gastruloid model, underscoring the robustness and versatility of the system across diverse biological contexts.
 
 <div style="display: flex; align-items: center;">
-    <img src="https://github.com/user-attachments/assets/03ecfed0-2cb0-4af6-83d3-9a576f87946c" alt="Image" width="150" style="margin-right: 10px;"/>
+    <img src="https://github.com/user-attachments/assets/03ecfed0-2cb0-4af6-83d3-9a576f87946c" alt="Image" width="400" style="margin-top: 10px;"/>
     <p style="font-size: 12px;">Scheme representation of the novel scDynaBar method.</p>
 </div>
 
