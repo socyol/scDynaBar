@@ -22,7 +22,7 @@ This repository contains data and scripts for analyzing single-cell RNA-seq and 
 
 ### `data/`
 
-- **`barcode_sequences/`**: This directory contains CSV files with barcode sequence data. Each file includes information on:
+- **`barcode_sequences/`**: This directory contains CSV files with barcode sequence data for each experiment: timecourse analysis (tc), zscan4 experiment (zscan4) and gastruloids (g1, g2 anf g3). Each file includes information on:
   - `cellID`: Identifier for each cell.
   - `barcode_sequence`: The specific barcode sequence (or allele).
   - `mean_illumina_score`: Quality score from Illumina sequencing for each single-cell experiment.
@@ -37,28 +37,34 @@ This repository contains data and scripts for analyzing single-cell RNA-seq and 
 ### `scripts/`
 
 #### Single-cells experiment analysis:
+in **`SingleCells/`** folder:
 - **`sc_1_SeuratObject_analysis.R`**: This script processes the filtered_feature_bc_matrix to convert it into a Seurat object (matrix in GEOomnibus accession)
 
 - **`sc_2_Barcode_sequences_analysis.R`**: This script processes the barcode sequence data and merges it with the Seurat objects to create the metadata (located in the `metadata` folder). This metadata is crucial for conducting analyses, viewing results, and generating figures.
+  
+- **`Blast_function/`**: Folder with scripts and data to run the blast analysis to check off targets of our alleles
+  
+- **`Diversity_function/`**: Folder with a script to compute the diversity measure (PairwiseAlignment) on a sample of our allele sequences
 
 
 #### Bulk analysis
-- **`bulk_1_analysis.R`**: First step of the Bulk analysis. This script prepares the FASTQ data by organizing it into different folders to optimize and facilitate the subsequent analysis. This step ensures proper structuring and management of the data for the following phases.
+in **`Bulk/`** folder:
+- **`1_bulk_analysis.R`**: First step of the Bulk analysis. This script prepares the FASTQ data by organizing it into different folders to optimize and facilitate the subsequent analysis. This step ensures proper structuring and management of the data for the following phases.
 
-- **`bulk_2_analysis.sh`**: Second step of the Bulk analysis. This Bash script automates the analysis process by creating jobs for each data file, which then execute the code provided in bulk_3_analysis.R. This parallelization helps to speed up the processing. At the end of this step, an output file similar to the barcode sequences for bulk data is generated, providing a comprehensive summary of the data processing.
+- **`2_bulk_analysis.sh`**: Second step of the Bulk analysis. This Bash script automates the analysis process by creating jobs for each data file, which then execute the code provided in bulk_3_analysis.R. This parallelization helps to speed up the processing. At the end of this step, an output file similar to the barcode sequences for bulk data is generated, providing a comprehensive summary of the data processing.
 
-- **`bulk_3_analysis.R`**:Third and final step of the Bulk analysis. This R script conducts a thorough analysis of the previously processed and organized data. It includes computations and data filtering.
+- **`3_bulk_analysis.R`**:Third and final step of the Bulk analysis. This R script conducts a thorough analysis of the previously processed and organized data. It includes computations and data filtering.
 
 
 #### PLOTS
 
-- **`plots_1-bulk.R`**: Contains scripts for creating visualizations related to bulk data.
+- **`1-bulk_plots.R`**: Contains scripts for creating visualizations related to bulk data.
 
-- **`plots_2-timecourse.R`**: Scripts for visualizations specific to time course analyses.
+- **`2-timecourse_plots.R`**: Scripts for visualizations specific to time course analyses.
 
-- **`plots_3-zscan4.R`**: Scripts for visualizations related to zscan4 experiment.
+- **`3-zscan4_plots.R`**: Scripts for visualizations related to zscan4 experiment.
   
--  **`plots_4-gastruloids.R`**: Scripts for visualizations related to gastruloid data.
+-  **`4-gastruloids_plots.R`**: Scripts for visualizations related to gastruloid data.
 
 - **`settings.R`**: This script includes all necessary libraries and custom functions created for this project.
 
