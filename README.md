@@ -6,10 +6,7 @@ In this study, we applied scDynaBar to track the transition from a pluripotent s
 
 <div style="display: flex; align-items: center;">
     <img src="https://github.com/user-attachments/assets/03ecfed0-2cb0-4af6-83d3-9a576f87946c" alt="Image" width="150" style="margin-right: 10px;"/>
-    <p style="font-size: 12px;">Scheme representation of the novel scDynaBar method. The
-self-targeting guide RNA recognizes itself as it is in the spacer within the sequence of the
-cassette inserted into each cell. Cas9 induces double-strand breaks that are repaired by
-NHEJ. The Cassette or CRISPR-Cas9 barcode accumulates indels (red marks) over time.</p>
+    <p style="font-size: 12px;">Scheme representation of the novel scDynaBar method.</p>
 </div>
 
 
